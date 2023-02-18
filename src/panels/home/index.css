@@ -1,0 +1,11 @@
+.card_wrap {
+  height: 500px;
+  width: 100%;
+}
+
+.card_wrap .vkuiCard__in {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,67 @@
+.wallet__step-title {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-bottom: 20px;
+}
+.wallet__step-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+.wallet__step-items > div {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+.wallet__step-items > div > div:first-child {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 50%;
+  margin: 20px auto;
+}
+.wallet__step-items > div:hover {
+  background-color: rgba(247, 251, 255, 0.236);
+}
+.wallet__step-items > div > div:first-child img {
+  display: inline-block;
+  width: 40%;
+}
+.wallet__step-items > div > div:nth-child(2) {
+  font-size: 12px;
+  padding: 5px 0;
+  margin-bottom: 15px;
+}
+.wallet__step-items > div > svg {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: 5px;
+  top: 5px;
+  display: none;
+}
+.wallet__step-items > div > svg circle {
+  fill: #627eea;
+  stroke: #fff;
+}
+.wallet__step-items > div > svg path {
+  stroke: #fff;
+}
+.wallet__step-items > div.selected > svg {
+  display: block;
+}
+.wallet__step-items > div.na {
+  cursor: default;
+  opacity: 0.5;
+}
+.wallet__qr-code {
+  text-align: center;
+}
+.wallet__qr-code svg {
+  width: 200px !important;
+  height: 200px !important;
+}
