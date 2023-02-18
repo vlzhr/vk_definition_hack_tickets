@@ -41,8 +41,10 @@ export default {
       this.providerForENSCheck = null;
     }
 
-    Ethereum.AppStorage.getStore().setUserNetworkName(network.name);
-    Ethereum.AppStorage.getStore().setUserIdentity(userIdentity);
+    if (Ethereum.AppStorage.getStore()) {
+      Ethereum.AppStorage.getStore().AppStore.setUserNetworkName(network.name);
+      Ethereum.AppStorage.getStore().AppStore?.setUserIdentity(userIdentity);
+    }
   },
 
   clearConnection() {

@@ -1,0 +1,25 @@
+.banner-card__image {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.banner-card__text {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -60%);
+}
+
+.banner-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

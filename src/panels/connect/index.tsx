@@ -2,7 +2,6 @@ import React from "react";
 
 import {
   Panel,
-  Header,
   Button,
   Group,
   CardGrid,
@@ -26,6 +25,7 @@ const Home: React.FC<IHomeProps> = ({ id, go }) => {
     "dynamic"
   );
   const toggleModal = () => {
+    console.log("toggleModal");
     setActiveModal(activeModal ? null : "dynamic");
   };
 
@@ -45,7 +45,7 @@ const Home: React.FC<IHomeProps> = ({ id, go }) => {
             </div>
             <Div style={{ margin: "auto", textAlign: "center" }}>
               <Button size="l" mode="primary" onClick={toggleModal}>
-                Подключить Веб3 кошелёк
+                Подключить web3 кошелёк
               </Button>
             </Div>
           </Card>

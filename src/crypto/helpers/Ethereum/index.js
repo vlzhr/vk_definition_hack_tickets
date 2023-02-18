@@ -139,7 +139,7 @@ export function getNameByChainID(chainID) {
   ) || ["unknown"];
   let isSupport =
     name !== "unknown"
-      ? !!+process.env[`VUE_APP_NETWORK_${name.toUpperCase()}_SUPPORT`]
+      ? !!+process.env[`REACT_APP_NETWORK_${name.toUpperCase()}_SUPPORT`]
       : false;
 
   return isSupport ? name : "unknown";

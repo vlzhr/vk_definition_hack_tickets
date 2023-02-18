@@ -1,0 +1,12 @@
+.active-footer-link svg path {
+  fill: #2688EB;
+}
+
+.active-footer-link {
+  color: #2688EB;
+}
+
+.footer-link {
+  font-weight: 400;
+  color: #99A2AD;
+}

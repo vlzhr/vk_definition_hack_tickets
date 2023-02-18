@@ -32,7 +32,7 @@ const AppConnector = {
   },
 
   async connect(wallet) {
-    console.log("user not connected");
+    console.log(this.connector, wallet, "user not connected");
     try {
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       return await this.connector.connectToWallet(wallet);

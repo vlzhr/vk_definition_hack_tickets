@@ -26,7 +26,8 @@
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/@types", "types/*"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "public": ["public/*"]
     }
   },
   "include": [

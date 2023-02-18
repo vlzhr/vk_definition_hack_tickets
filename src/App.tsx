@@ -1,31 +1,72 @@
 import React, { useState, useEffect } from "react";
-import bridge from "@vkontakte/vk-bridge";
+// import bridge from "@vkontakte/vk-bridge";
 import {
   View,
   ScreenSpinner,
   AdaptivityProvider,
   AppRoot,
   ConfigProvider,
+  CellButton,
   SplitLayout,
   SplitCol
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
+import { useStores } from "@/hooks/useStores";
+import AppConnector from "@/crypto/AppConnector";
+import { observer } from "mobx-react-lite";
+import Footer from "./components/footer";
 
+// panels
 import ConnectWallet from "./panels/connect";
+import MainPanel from "./panels/main";
+import CreateTicket from "./panels/createTicket";
+import MyTickets from "./panels/myTickets";
+
+export enum EPanels {
+  CONNECT_WALLET = "connectWallet",
+  MAIN_PANEL = "mainPanel",
+  CREATE_TICKET_PANEL = "createTicketPanel",
+  MY_TICKET_PANEL = "myTicketPanel"
+}
 
 const App = () => {
-  const [activePanel, setActivePanel] = useState("connectWallet");
-  const [fetchedUser, setUser] = useState<any>(null);
+  const [activePanel, setActivePanel] = useState(EPanels.CONNECT_WALLET);
   const [popout, setPopout] = useState<any>(<ScreenSpinner size="large" />);
+  const {
+    AppStore: { setAppReady, connection }
+  } = useStores();
+
+  const getActiveLink = (): 0 | 1 | 2 => {
+    if (activePanel === EPanels.MAIN_PANEL) return 0;
+    if (activePanel === EPanels.CREATE_TICKET_PANEL) return 1;
+    if (activePanel === EPanels.MY_TICKET_PANEL) return 2;
+    return 0;
+  };
 
   useEffect(() => {
+    console.log(process.env, "PROCESS ENV");
+    console.log(connection, "AppStore");
     async function fetchData() {
-      const user = await bridge.send("VKWebAppGetUserInfo");
-      setUser(user);
+      // const user = await bridge.send("VKWebAppGetUserInfo");
+      // setUser(user);
       setPopout(null);
+
+      try {
+        await AppConnector.init();
+        console.log("INIT");
+        setActivePanel(EPanels.MAIN_PANEL);
+      } catch (e) {
+        console.log("user not connected", e);
+      } finally {
+        setAppReady();
+      }
     }
     fetchData();
-  }, []);
+  }, [setAppReady, connection]);
+
+  useEffect(() => {
+    if (connection?.userIdentity) setActivePanel(EPanels.MAIN_PANEL);
+  }, [connection.userIdentity]);
 
   const go = (e: any) => {
     setActivePanel(e.currentTarget.dataset.to);
@@ -38,8 +79,18 @@ const App = () => {
           <SplitLayout popout={popout}>
             <SplitCol>
               <View activePanel={activePanel}>
-                <ConnectWallet id="connectWallet" go={go} />
+                <ConnectWallet id={EPanels.CONNECT_WALLET} go={go} />
+                <MainPanel id={EPanels.MAIN_PANEL} />
+                <CreateTicket id={EPanels.CREATE_TICKET_PANEL} />
+                <MyTickets id={EPanels.MY_TICKET_PANEL} />
               </View>
+              <Footer
+                active={getActiveLink()}
+                onChange={(val) => {
+                  console.log(val, "CHANGE");
+                  setActivePanel(val);
+                }}
+              />
             </SplitCol>
           </SplitLayout>
         </AppRoot>
@@ -48,4 +99,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);

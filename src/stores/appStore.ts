@@ -41,8 +41,8 @@ class AppStore {
       key: "walletconnect",
       color: "#D9ECFF",
       available: true
-    },
-    { id: 2, name: "1inch", key: "1inch", color: "#0E131D", available: true }
+    }
+    // { id: 2, name: "1inch", key: "1inch", color: "#0E131D", available: true }
   ];
 
   connection = {
@@ -64,36 +64,39 @@ class AppStore {
   };
   userAmount = 0;
 
-  setUserAmount(value: any) {
+  setUserAmount = (value: any) => {
     this.userAmount = value;
-  }
-  setProcessStatus(statusCode = "", ...additionParams: any) {
+  };
+  setProcessStatus = (statusCode = "", ...additionParams: any) => {
     this.processStatus.code = statusCode;
     // this.processStatus.addition.splice(
     //   0,
     //   this.processStatus.addition.length,
     //   ...additionParams
     // );
-  }
-  openWalletConnectQR(copyCode: any, closeHandler: any) {
+  };
+  openWalletConnectQR = (copyCode: any, closeHandler: any) => {
     this.walletConnectCode = copyCode;
     this.walletConnectCloseHandler = closeHandler;
     this.isWalletConnectModalOpen = true;
-  }
-  closeWalletConnectQR({ isAutomatic = false } = {}) {
+  };
+  closeWalletConnectQR = ({ isAutomatic = false } = {}) => {
     if (!isAutomatic && this.walletConnectCloseHandler) {
       // this.walletConnectCloseHandler();
     }
     this.isWalletConnectModalOpen = false;
     this.walletConnectCloseHandler = null;
-  }
-  setAppReady() {
+  };
+
+  setAppReady = () => {
     this.isAppReady = true;
-  }
-  setUserIdentity(value = null) {
+  };
+
+  setUserIdentity = (value = null) => {
     this.connection.userIdentity = value;
-  }
-  setUserNetworkName(value = null) {
+  };
+
+  setUserNetworkName = (value = null) => {
     this.connection.userNetworkName = value;
     if (value) {
       const { transactionExplorer, accountExplorer, blockExplorer } =
@@ -105,7 +108,7 @@ class AppStore {
       const { store } = Ethereum.getSettings(value);
       this.shopURL = store;
     }
-  }
+  };
 }
 
 export default AppStore;

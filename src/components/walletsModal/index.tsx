@@ -16,37 +16,23 @@ import {
   Platform
 } from "@vkontakte/vkui";
 
+import { useStores } from "@/hooks/useStores";
 import { useWalletConnection } from "@/crypto/walletHelpers/WalletConnect";
 import AppConnector from "@/crypto/AppConnector";
-import { Ethereum } from "@/crypto/helpers";
 
-import { Icon24Dismiss, Icon56MoneyTransferOutline } from "@vkontakte/icons";
-
-const wallets = [
-  {
-    id: 1,
-    name: "MetaMask",
-    key: "Metamask",
-    color: "#627EEA",
-    available: true
-  },
-  {
-    id: 3,
-    name: "WalletConnect",
-    key: "walletconnect",
-    color: "#D9ECFF",
-    available: true
-  }
-];
+import { Icon24Dismiss } from "@vkontakte/icons";
 
 interface IProps {
   id: string;
-  onClose: any;
+  onClose: () => void;
   dynamicContentHeight: boolean;
 }
 
 const DynamicModalPage: React.FC<IProps> = ({ onClose, ...props }) => {
   const platform = usePlatform();
+  const {
+    AppStore: { wallets }
+  } = useStores();
   const { sizeX } = useAdaptivityConditionalRender();
   const [expanded, setExpanded] = React.useState(false);
   const [isConnecting, setConnecting] = React.useState(false);
@@ -60,6 +46,7 @@ const DynamicModalPage: React.FC<IProps> = ({ onClose, ...props }) => {
         instance.connector
           .isUserConnected()
           .then(() => {
+            console.log("instance.connector");
             // @ts-ignore: Unreachable code error
             afterConnect();
           })
@@ -67,15 +54,9 @@ const DynamicModalPage: React.FC<IProps> = ({ onClose, ...props }) => {
             console.log(instance, "connector1");
             // console.log('user not connected')
             let walletValue = selectedWallet ? selectedWallet : "walletconnect";
-            instance.connector
-              .connectToWallet(walletValue)
-              .then(() => {
-                // @ts-ignore: Unreachable code error
-                afterConnect();
-              })
-              .catch((e: any) => {
-                console.log(`Error connecting to ${selectedWallet} `, e);
-              });
+            instance.connector.connectToWallet(walletValue).catch((e: any) => {
+              console.log(`Error connecting to ${selectedWallet} `, e);
+            });
           });
       });
     } catch (e) {
@@ -119,6 +100,7 @@ const DynamicModalPage: React.FC<IProps> = ({ onClose, ...props }) => {
         <div className="wallet__step-items">
           {wallets.map((_) => (
             <div
+              key={_.id}
               onClick={() => (_.available ? setWallet(_.key) : null)}
               className={selectedWallet === _.key ? "selected" : undefined}
             >

@@ -115,6 +115,7 @@ export default {
         console.log("connection options", this._connectedOptions);
 
         console.log("1--------");
+        console.log(this._connectedOptions, "_connectedOptions");
 
         let connectedNetworkName = Ethereum.getNameByChainID(
           this._connectedOptions.chainId
