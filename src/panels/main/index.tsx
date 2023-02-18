@@ -18,11 +18,11 @@ import {
 import { Icon16Microphone, Icon16Search } from "@vkontakte/icons";
 import "./index.css";
 
-interface IHomeProps {
+interface IProps {
   id: string;
 }
 
-const Main: React.FC<IHomeProps> = ({ id }) => {
+const Main: React.FC<IProps> = ({ id }) => {
   const textInput = createRef<HTMLInputElement>();
   const search = () => {
     console.log(textInput, "text");

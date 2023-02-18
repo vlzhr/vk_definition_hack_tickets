@@ -31,6 +31,7 @@ export enum EPanels {
 
 const App = () => {
   const [activePanel, setActivePanel] = useState(EPanels.CONNECT_WALLET);
+  const [prevPanel, setPrevPanel] = useState(EPanels.CONNECT_WALLET);
   const [popout, setPopout] = useState<any>(<ScreenSpinner size="large" />);
   const {
     AppStore: { setAppReady, connection }
@@ -81,13 +82,19 @@ const App = () => {
               <View activePanel={activePanel}>
                 <ConnectWallet id={EPanels.CONNECT_WALLET} go={go} />
                 <MainPanel id={EPanels.MAIN_PANEL} />
-                <CreateTicket id={EPanels.CREATE_TICKET_PANEL} />
-                <MyTickets id={EPanels.MY_TICKET_PANEL} />
+                <CreateTicket
+                  id={EPanels.CREATE_TICKET_PANEL}
+                  onBack={() => setActivePanel(prevPanel)}
+                />
+                <MyTickets
+                  id={EPanels.MY_TICKET_PANEL}
+                  onBack={() => setActivePanel(prevPanel)}
+                />
               </View>
               <Footer
                 active={getActiveLink()}
                 onChange={(val) => {
-                  console.log(val, "CHANGE");
+                  setPrevPanel(activePanel);
                   setActivePanel(val);
                 }}
               />
