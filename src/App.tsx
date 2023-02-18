@@ -11,11 +11,10 @@ import {
 } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 
-import Home from "./panels/home/Home";
-import Persik from "./panels/Persik";
+import ConnectWallet from "./panels/connect";
 
 const App = () => {
-  const [activePanel, setActivePanel] = useState("home");
+  const [activePanel, setActivePanel] = useState("connectWallet");
   const [fetchedUser, setUser] = useState<any>(null);
   const [popout, setPopout] = useState<any>(<ScreenSpinner size="large" />);
 
@@ -39,8 +38,7 @@ const App = () => {
           <SplitLayout popout={popout}>
             <SplitCol>
               <View activePanel={activePanel}>
-                <Home id="home" go={go} />
-                <Persik id="persik" go={go} />
+                <ConnectWallet id="connectWallet" go={go} />
               </View>
             </SplitCol>
           </SplitLayout>

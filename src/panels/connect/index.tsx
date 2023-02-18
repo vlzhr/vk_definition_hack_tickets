@@ -22,17 +22,16 @@ interface IHomeProps {
 }
 
 const Home: React.FC<IHomeProps> = ({ id, go }) => {
-  const [activeModal, setActiveModal] = React.useState<string | null>(null);
+  const [activeModal, setActiveModal] = React.useState<string | null>(
+    "dynamic"
+  );
   const toggleModal = () => {
     setActiveModal(activeModal ? null : "dynamic");
   };
 
   return (
     <Panel id={id}>
-      <Group
-        mode="plain"
-        header={<Header mode="secondary">Дефолтный стиль</Header>}
-      >
+      <Group mode="plain">
         <CardGrid size="l">
           <Card className="card_wrap">
             <div style={{ zIndex: 50 }}>

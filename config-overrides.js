@@ -48,6 +48,21 @@ module.exports = function override(config) {
 
   config.ignoreWarnings = [
     {
+      module: /node_modules\/@rarible/
+    },
+    {
+      module: /node_modules\/@airgap/
+    },
+    {
+      module: /node_modules\/exponential-backoff/
+    },
+    {
+      module: /node_modules\/json-rpc-engine/
+    },
+    {
+      module: /node_modules\/web3/
+    },
+    {
       module: /node_modules\/xhr2-cookies/
     },
     {
